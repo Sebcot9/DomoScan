@@ -1,0 +1,6 @@
+{
+    "changeChanel": "mets la chaîne (?P<channelValue>.+)",
+    "volumeUp": "monte le son",
+    "volumeDown": "baisse le son",
+    "volumeMute": "coupe le son"
+}

@@ -1,0 +1,15 @@
+{
+  "short_name": "Merry Home",
+  "name": "Merry Home",
+  "icons": [
+    {
+      "src": "home.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5bc0de",
+  "background_color": "#ffffff"
+}

@@ -1,0 +1,103 @@
+.App {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.voice-icon{
+    font-size: 50px;
+    display: block;
+    margin: 10px auto;
+    color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.listening{
+    animation: changecolor-listening infinite 1s alternate;
+}
+
+@keyframes changecolor-listening {
+    from {color:#d9534f; opacity: 1;}
+    to {color:#d9534f;opacity:0.5;}
+}
+
+.plugincontent{
+   margin: 20px;
+}
+
+.plugin-androidtv button{
+    margin: 3px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.configuration-form{
+    text-align: left;
+    padding: 20px;
+    
+}
+
+.switch-button{
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    background: ghostwhite;
+    border-radius: 10px;
+    border: 1px solid #5bc0de;
+}
+
+.cameraitem{
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    background: ghostwhite;
+    border-radius: 10px;
+    border: 1px solid #5bc0de;
+}
+
+.cameraitem button{
+    position: inherit;
+    float: right;
+    margin-top: -30px;
+    margin-left: -40px;
+}
+
+.cameraitem img{
+    height: 250px;
+}
+
+.cameraitem img+img{
+    position: inherit;
+    margin: auto;
+    margin-top: -250px;
+    opacity: 0.75;
+}

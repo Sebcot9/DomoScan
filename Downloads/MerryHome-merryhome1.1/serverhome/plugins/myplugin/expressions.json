@@ -1,0 +1,4 @@
+{ 
+    "nextchap": 	"quel est le dernier scan de (?P<searchValue>.+\\s?.*\\s?.*)",
+    "anim": 	"qu'est-ce (qu'un|que|qu'une) (?P<searchValue>.+\\s?.*\\s?.*)"
+}

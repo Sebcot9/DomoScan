@@ -1,0 +1,4 @@
+{ 
+    "whois": 	"quel est le dernier chapitre de (?P<searchValue>.+\\s?.*\\s?.*)",
+    "whatis": 	"qu'est-ce (qu'un|que|qu'une) (?P<searchValue>.+\\s?.*\\s?.*)"
+}

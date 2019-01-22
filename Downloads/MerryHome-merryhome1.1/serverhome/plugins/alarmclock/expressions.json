@@ -1,0 +1,4 @@
+{ 
+    "getWakeUp"     : "quelle est l'heure du réveil",
+    "changeWakeUp"  : "mets le réveil à (?P<houre>[0-9]+)h(?P<minutes>[0-9]+)"
+}
