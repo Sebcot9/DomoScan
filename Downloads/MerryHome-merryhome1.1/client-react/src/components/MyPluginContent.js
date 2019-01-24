@@ -12,17 +12,20 @@ export default function MyPluginContent(response){
         let url = response.info.url;
         const iframeStyle = {
             width: '100%',
-            height: '500px',
+            height: '200vh'
         };
 
 
         return (
             <div style={marginStyle}>
-                <iframe src={url} style={iframeStyle}/>
+                <iframe src={url} style={iframeStyle} scrolling="no"/>
             </div>
         );
     }else if(response.info.statusCode === 404 || response.info.statusCode === 500){
         return <h1 style= {marginStyle}>Il n'y a pas de résultat pour cette recherche</h1>;
+    }else{
+        return <h1 style= {marginStyle}>Il</h1>;
+
     }
 }
 

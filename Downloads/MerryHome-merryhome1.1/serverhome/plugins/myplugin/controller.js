@@ -13,48 +13,39 @@ class MyPluginController {
             case "exists":
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
 
-                var wikiReq = request('GET', requestUrl,{cache:'file'});
+                var wikiReq = request('GET', requestUrl,{cache:'file'});    
 
-
-                if(wikiReq.statusCode == 200){
-                    var html = wikiReq.getBody('utf8');
-
-                    var str = "class=\"mangaresultauthoritem\"";
-
-                    var regex = new RegExp(str);
-
-                    var found = html.match(regex);
-
-                    if(found.length <= 0){
-                        wikiReq.statusCode
-                    }
-                    var split = found[0].split("/");
-
-                    var urls = requestUrl  + split[1] + "/" + split[2];
-
-                    var test = request('GET', urls,{cache:'file'});
-
-                    return wikiReq;
+                if(!wikiReq){
+                    res.end(JSON.stringify({resultText: "je n'ai pas d'informations"}));
+                }else{
+                    res.end(JSON.stringify({resultText: wikiReq}));
                 }
 
-
-                res.end(JSON.stringify({resultText: wikiReq}));
                 break;
             case "lastChap":
                 var name =  slugify(req.body.searchValue.toLowerCase());
                 var url =  getUrl(requestUrl, name);
 
-                res.end(JSON.stringify({resultText: url, tests: name}));
+                if(!url){
+                    res.end(JSON.stringify({resultText: "je n'ai pas d'informations"}));
+                }else{
+                    res.end(JSON.stringify({resultText: url, tests: name}));
+                }
 
                 break;
             case "showchap":
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
                 requestUrl += "/"+req.body.searchNum;
                 var wikiReq = request('GET', requestUrl,{cache:'file'});
-                res.end(JSON.stringify({resultText: wikiReq}));
+
+                if(!wikiReq){
+                    res.end(JSON.stringify({resultText: "je n'ai pas d'informations"}));
+                }else{
+                    res.end(JSON.stringify({resultText: wikiReq}));
+                }
                 break;
             default:
-                res.end(JSON.stringify({}));
+                res.end(JSON.stringify({resultText: "je n'ai pas d'informations"}));
                 break;
 
         }

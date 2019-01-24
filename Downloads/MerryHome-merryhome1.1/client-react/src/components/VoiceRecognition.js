@@ -92,7 +92,7 @@ class VoiceRecognition extends Component {
             return <div>Pour utiliser la reconnaissance vocale, merci d'utiliser google chrome ;)</div>;
         }
 
-        var resultats = this.state.response ? <MyPluginContent info={this.state.response} /> : "";
+        var resultats = this.state.response ? <MyPluginContent info={this.state.response} /> : "coucou";
 
         return (
 
