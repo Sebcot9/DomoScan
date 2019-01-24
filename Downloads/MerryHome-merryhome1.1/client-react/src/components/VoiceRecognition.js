@@ -5,6 +5,7 @@ import SpeechRecognition from 'react-speech-recognition'
 
 import {getExpressions, sendRequest, subscribeToEvent} from '../utils/serverhome-api'
 import {searchRequest} from '../utils/voice-helper'
+import MyPluginContent from './MyPluginContent'
 
 const propTypes = {
   // Props injected by SpeechRecognition
@@ -18,7 +19,9 @@ class VoiceRecognition extends Component {
     constructor(props){
         super(props);
         this.state = { expressions: [],
-                       conversation: []};
+                       conversation: [],
+            response : ""
+        };
     }
 
     componentDidMount(){
@@ -49,7 +52,7 @@ class VoiceRecognition extends Component {
             var utterThis = new SpeechSynthesisUtterance(data);
             utterThis.lang = 'fr-FR';
             console.log({"event server says":data});
-            window.speechSynthesis.speak(utterThis);
+           // window.speechSynthesis.speak(utterThis);
         });
     }
     
@@ -59,9 +62,22 @@ class VoiceRecognition extends Component {
                 var utterThis = new SpeechSynthesisUtterance(data.resultText);
                 utterThis.lang = 'fr-FR';
                 console.log({"response":data.resultText});
-                window.speechSynthesis.speak(utterThis);
+                this.setState({"response":data.resultText});
+
+                this.response(objRequest.action, data, objRequest);
             }
         });
+    }
+
+    response(question, data, objRequest){
+
+        if(question == "lastChap"){
+            var utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
+            console.log(data);
+        }
+
+        utterThis.lang = 'fr-FR';
+        window.speechSynthesis.speak(utterThis);
     }
 
     render() {
@@ -75,13 +91,21 @@ class VoiceRecognition extends Component {
             return <div>Pour utiliser la reconnaissance vocale, merci d'utiliser google chrome ;)</div>;
         }
 
+        var resultats = this.state.response ? <MyPluginContent info={this.state.response} /> : "";
+
         return (
+
             <div>
                <Glyphicon glyph="comment" className={"voice-icon "+(this.props.listening  ? "listening" : "")} />
                { this.props.listening  ? 
                 <Button bsStyle="danger" onClick={stopListening}><Glyphicon glyph="stop" /> stop </Button> : 
                 <Button bsStyle="info" onClick={startListening }><Glyphicon glyph="play" /> start </Button> }
-            </div>
+
+                   <div>{resultats}</div>
+
+               </div>
+
+
         );
     };
 };
