@@ -102,7 +102,7 @@ class VoiceRecognition extends Component {
                 <Button bsStyle="danger" onClick={stopListening}><Glyphicon glyph="stop" /> stop </Button> : 
                 <Button bsStyle="info" onClick={startListening }><Glyphicon glyph="play" /> start </Button> }
 
-                   <div>{resultats}</div>
+                <div>{resultats}</div>
 
                </div>
 

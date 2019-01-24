@@ -12,9 +12,7 @@ class MyPluginController {
         switch(req.params.actionId){
             case "exists":
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
-
                 var wikiReq = request('GET', requestUrl,{cache:'file'});    
-
                 if(!wikiReq){
                     res.end(JSON.stringify({resultText: "je n'ai pas d'informations"}));
                 }else{
@@ -54,24 +52,15 @@ class MyPluginController {
 
 function getUrl(requestUrl, name) {
     var url = requestUrl  + name;
-
     var wikiReq = request('GET', url,{cache:'file'});
-
     if(wikiReq.statusCode == 200){
         var html = wikiReq.getBody('utf8');
-
         var str = "href=\"\/" + name + "\/[0-9]{3}";
-
         var regex = new RegExp(str);
-
         var found = html.match(regex);
-
         var split = found[0].split("/");
-
         var urls = requestUrl  + split[1] + "/" + split[2];
-
         var test = request('GET', urls,{cache:'file'});
-
         return test;
     }else{
         return wikiReq;
