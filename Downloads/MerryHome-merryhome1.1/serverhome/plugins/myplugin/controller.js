@@ -7,20 +7,45 @@ class MyPluginController {
     }
     
     postAction(req, res){
+        var requestUrl="https://www.mangareader.net/";
+
         switch(req.params.actionId){
-            case "nextchap":
-            case "anim":
-                var requestUrl="https://www.mangareader.net/";
+            case "exists":
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
-                //window.open(requestUrl,"_blank");
-                //console.log(requestUrl);
-                //var wikiReq = request('GET', requestUrl,{cache:'file'});
-                //var response = wikiReq.getBody('utf8');
-                console.log(response);
-                //var textResponse= parseDataResponse(response);
-                
-                    res.end(JSON.stringify({resultText: requestUrl}));
-                
+
+                var wikiReq = request('GET', requestUrl,{cache:'file'});
+
+
+                if(wikiReq.statusCode == 200){
+                    var html = wikiReq.getBody('utf8');
+
+                    var str = "class=\"mangaresultauthoritem\"";
+
+                    var regex = new RegExp(str);
+
+                    var found = html.match(regex);
+
+                    if(found.length <= 0){
+                        wikiReq.statusCode
+					}
+                    var split = found[0].split("/");
+
+                    var urls = requestUrl  + split[1] + "/" + split[2];
+
+                    var test = request('GET', urls,{cache:'file'});
+
+                    return wikiReq;
+                }
+
+
+                res.end(JSON.stringify({resultText: wikiReq}));
+                break;
+			case "lastChap":
+                var name =  slugify(req.body.searchValue.toLowerCase());
+                var url =  getUrl(requestUrl, name);
+
+                res.end(JSON.stringify({resultText: url, tests: name}));
+
                 break;
             default:
                 res.end(JSON.stringify({}));
@@ -28,6 +53,32 @@ class MyPluginController {
             
         }
     }
+}
+
+function getUrl(requestUrl, name) {
+    var url = requestUrl  + name;
+
+    var wikiReq = request('GET', url,{cache:'file'});
+
+    if(wikiReq.statusCode == 200){
+        var html = wikiReq.getBody('utf8');
+
+        var str = "href=\"\/" + name + "\/[0-9]{3}";
+
+        var regex = new RegExp(str);
+
+        var found = html.match(regex);
+
+        var split = found[0].split("/");
+
+        var urls = requestUrl  + split[1] + "/" + split[2];
+
+        var test = request('GET', urls,{cache:'file'});
+
+        return test;
+	}else{
+    	return wikiReq;
+	}
 }
 
 function parseDataSend(data){
