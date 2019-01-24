@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import {isConfigured} from '../utils/authservice'
 import { Button, Glyphicon } from 'react-bootstrap'
 import SpeechRecognition from 'react-speech-recognition'
-
+//import newfile from 'newfile'
 import {getExpressions, sendRequest, subscribeToEvent} from '../utils/serverhome-api'
 import {searchRequest} from '../utils/voice-helper'
 import MyPluginContent from './MyPluginContent'
@@ -61,20 +61,30 @@ class VoiceRecognition extends Component {
             if(data.resultText){
                 var utterThis = new SpeechSynthesisUtterance(data.resultText);
                 utterThis.lang = 'fr-FR';
-                console.log({"response":data.resultText});
                 this.setState({"response":data.resultText});
 
-                this.response(objRequest.action, data, objRequest);
+                this.response(data, objRequest);
             }
         });
     }
 
-    response(question, data, objRequest){
+    response(data, objRequest){
+        var question = objRequest.action;
+        var status = data.resultText.statusCode;
 
-        if(question == "lastChap"){
-            var utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
-            console.log(data);
+        var utterThis = new SpeechSynthesisUtterance("Je n'ai pas l'information, veuillez réessayer");
+
+        if(status === 200){
+            if(question === "lastChap" ){
+                utterThis = new SpeechSynthesisUtterance("Le dernier chapitre de " + objRequest.data.searchValue + " est le scan " + data.resultText.url.replace( /^\D+/g, ''));
+            }else if(question === "showchap"){
+                utterThis = new SpeechSynthesisUtterance("Voici le chapitre " + objRequest.data.searchNum + " de " + objRequest.data.searchValue);
+    
+            }else if(question === "exists"){
+                utterThis = new SpeechSynthesisUtterance("Le manga " + objRequest.data.searchValue + " existe");
+            }
         }
+        
 
         utterThis.lang = 'fr-FR';
         window.speechSynthesis.speak(utterThis);
@@ -101,7 +111,7 @@ class VoiceRecognition extends Component {
                 <Button bsStyle="danger" onClick={stopListening}><Glyphicon glyph="stop" /> stop </Button> : 
                 <Button bsStyle="info" onClick={startListening }><Glyphicon glyph="play" /> start </Button> }
 
-                   <div>{resultats}</div>
+                <div>{resultats}</div>
 
                </div>
 
