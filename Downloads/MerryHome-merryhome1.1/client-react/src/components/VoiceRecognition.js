@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import {isConfigured} from '../utils/authservice'
 import { Button, Glyphicon } from 'react-bootstrap'
 import SpeechRecognition from 'react-speech-recognition'
-
+//import newfile from 'newfile'
 import {getExpressions, sendRequest, subscribeToEvent} from '../utils/serverhome-api'
 import {searchRequest} from '../utils/voice-helper'
 

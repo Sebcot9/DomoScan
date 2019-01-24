@@ -1,4 +1,4 @@
 { 
-    "nextchap": 	"quel est le dernier scan de (?P<searchValue>.+\\s?.*\\s?.*)",
-    "anim": 	"qu'est-ce (qu'un|que|qu'une) (?P<searchValue>.+\\s?.*\\s?.*)"
+    "lastchap": 	"quel est le dernier (scan|chapitre) de (?P<searchValue>.+\\s?.*\\s?.*)",
+    "showchap": 	"montre-moi le (scan|chapitre) (?P<searchNum>.+\\s?.*\\s?.*) de (?P<searchValue>.+\\s?.*\\s?.*)"
 }

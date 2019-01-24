@@ -8,18 +8,33 @@ class MyPluginController {
     
     postAction(req, res){
         switch(req.params.actionId){
-            case "nextchap":
-            case "anim":
+            case "lastchap":
                 var requestUrl="https://www.mangareader.net/";
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
                 //window.open(requestUrl,"_blank");
                 //console.log(requestUrl);
-                //var wikiReq = request('GET', requestUrl,{cache:'file'});
-                //var response = wikiReq.getBody('utf8');
-                console.log(response);
-                //var textResponse= parseDataResponse(response);
-                
-                    res.end(JSON.stringify({resultText: requestUrl}));
+                var wikiReq = request('GET', requestUrl,{cache:'file'});
+                if(wikiReq.statusCode == "404"){
+                	res.end(JSON.stringify({resultText: "pas de reponses"}));
+                }
+                else if(wikiReq.statusCode == "200"){
+                	res.end(JSON.stringify({resultText: requestUrl }));
+                }
+
+                break;
+            case "showchap":
+                var requestUrl="https://www.mangareader.net/";
+                requestUrl += slugify(req.body.searchValue.toLowerCase());
+                requestUrl += "/"+req.body.searchNum;
+                //window.open(requestUrl,"_blank");
+                //console.log(requestUrl);
+                var wikiReq = request('GET', requestUrl,{cache:'file'});
+                if(wikiReq.statusCode == "404"){
+                	res.end(JSON.stringify({resultText: "pas de reponses"}));
+                }
+                else if(wikiReq.statusCode == "200"){
+                	res.end(JSON.stringify({resultText: requestUrl }));
+                }
                 
                 break;
             default:
