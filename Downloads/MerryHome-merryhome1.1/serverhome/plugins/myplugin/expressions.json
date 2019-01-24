@@ -1,4 +1,5 @@
 { 
     "exists": 	"Le manga (?P<searchValue>.+\\s?.*\\s?.*) existe-t-il",
-    "lastChap": 	"(.+\\s?.*\\s?.*) le dernier (scan|chapitre) de (?P<searchValue>.+\\s?.*\\s?.*)"
+    "lastChap": 	"(.+\\s?.*\\s?.*) le dernier (scan|chapitre) de (?P<searchValue>.+\\s?.*\\s?.*)",
+    "showchap": 	"montre-moi le (scan|chapitre) (?P<searchNum>.+\\s?.*\\s?.*) de (?P<searchValue>.+\\s?.*\\s?.*)"
 }

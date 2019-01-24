@@ -7,46 +7,62 @@ class MyPluginController {
     }
     
     postAction(req, res){
-        var requestUrl="https://www.mangareader.net/";
-
         switch(req.params.actionId){
-            case "exists":
-                requestUrl += slugify(req.body.searchValue.toLowerCase());
+            var requestUrl="https://www.mangareader.net/";
 
-                var wikiReq = request('GET', requestUrl,{cache:'file'});
+                switch(req.params.actionId){
+                    case "exists":
+                        requestUrl += slugify(req.body.searchValue.toLowerCase());
 
-
-                if(wikiReq.statusCode == 200){
-                    var html = wikiReq.getBody('utf8');
-
-                    var str = "class=\"mangaresultauthoritem\"";
-
-                    var regex = new RegExp(str);
-
-                    var found = html.match(regex);
-
-                    if(found.length <= 0){
-                        wikiReq.statusCode
-					}
-                    var split = found[0].split("/");
-
-                    var urls = requestUrl  + split[1] + "/" + split[2];
-
-                    var test = request('GET', urls,{cache:'file'});
-
-                    return wikiReq;
-                }
+                        var wikiReq = request('GET', requestUrl,{cache:'file'});
 
 
-                res.end(JSON.stringify({resultText: wikiReq}));
-                break;
-			case "lastChap":
-                var name =  slugify(req.body.searchValue.toLowerCase());
-                var url =  getUrl(requestUrl, name);
+                        if(wikiReq.statusCode == 200){
+                            var html = wikiReq.getBody('utf8');
 
-                res.end(JSON.stringify({resultText: url, tests: name}));
+                            var str = "class=\"mangaresultauthoritem\"";
 
-                break;
+                            var regex = new RegExp(str);
+
+                            var found = html.match(regex);
+
+                            if(found.length <= 0){
+                                wikiReq.statusCode
+                            }
+                            var split = found[0].split("/");
+
+                            var urls = requestUrl  + split[1] + "/" + split[2];
+
+                            var test = request('GET', urls,{cache:'file'});
+
+                            return wikiReq;
+                        }
+
+
+                        res.end(JSON.stringify({resultText: wikiReq}));
+                        break;
+                    case "lastChap":
+                        var name =  slugify(req.body.searchValue.toLowerCase());
+                        var url =  getUrl(requestUrl, name);
+
+                        res.end(JSON.stringify({resultText: url, tests: name}));
+
+                        break;
+                    case "showchap":
+                        var requestUrl="https://www.mangareader.net/";
+                        requestUrl += slugify(req.body.searchValue.toLowerCase());
+                        requestUrl += "/"+req.body.searchNum;
+                        //window.open(requestUrl,"_blank");
+                        //console.log(requestUrl);
+                        var wikiReq = request('GET', requestUrl,{cache:'file'});
+                        if(wikiReq.statusCode == "404"){
+                            res.end(JSON.stringify({resultText: "pas de reponses"}));
+                        }
+                        else if(wikiReq.statusCode == "200"){
+                            res.end(JSON.stringify({resultText: requestUrl }));
+                        }
+
+                        break;
             default:
                 res.end(JSON.stringify({}));
                 break;
