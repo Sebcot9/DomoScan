@@ -70,9 +70,10 @@ class VoiceRecognition extends Component {
     }
 
     response(question, data, objRequest){
+        var utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
 
-        if(question == "lastChap"){
-            var utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
+        if(question === "lastChap"){
+            utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
             console.log(data);
         }
 

@@ -10,7 +10,6 @@ class MyPluginController {
         var requestUrl="https://www.mangareader.net/";
 
         switch(req.params.actionId){
-
             case "exists":
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
 
@@ -49,19 +48,10 @@ class MyPluginController {
 
                 break;
             case "showchap":
-                var requestUrl="https://www.mangareader.net/";
                 requestUrl += slugify(req.body.searchValue.toLowerCase());
                 requestUrl += "/"+req.body.searchNum;
-                //window.open(requestUrl,"_blank");
-                //console.log(requestUrl);
                 var wikiReq = request('GET', requestUrl,{cache:'file'});
-                if(wikiReq.statusCode == "404"){
-                    res.end(JSON.stringify({resultText: "pas de reponses"}));
-                }
-                else if(wikiReq.statusCode == "200"){
-                    res.end(JSON.stringify({resultText: requestUrl }));
-                }
-
+                res.end(JSON.stringify({resultText: wikiReq}));
                 break;
             default:
                 res.end(JSON.stringify({}));
