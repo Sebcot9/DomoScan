@@ -5,7 +5,7 @@ export default function MyPluginContent(response){
     console.log(response.info);
 
     const marginStyle = {
-        marginTop: '100px'
+        marginTop: '50px'
     };
 
     if(response.info.statusCode === 200){
@@ -15,9 +15,16 @@ export default function MyPluginContent(response){
             height: '200vh'
         };
 
+        
+        const titleStyle = {
+            color: 'red',
+            marginBottom: '10px'
+        };
+
 
         return (
             <div style={marginStyle}>
+                <h1 style={titleStyle}>Bonne lecture !</h1>
                 <iframe src={url} style={iframeStyle} scrolling="no"/>
             </div>
         );

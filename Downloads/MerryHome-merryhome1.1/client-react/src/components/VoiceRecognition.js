@@ -61,21 +61,30 @@ class VoiceRecognition extends Component {
             if(data.resultText){
                 var utterThis = new SpeechSynthesisUtterance(data.resultText);
                 utterThis.lang = 'fr-FR';
-                console.log({"response":data.resultText});
                 this.setState({"response":data.resultText});
 
-                this.response(objRequest.action, data, objRequest);
+                this.response(data, objRequest);
             }
         });
     }
 
-    response(question, data, objRequest){
-        var utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
+    response(data, objRequest){
+        var question = objRequest.action;
+        var status = data.resultText.statusCode;
 
-        if(question === "lastChap"){
-            utterThis = new SpeechSynthesisUtterance("Le dernier scan de");
-            console.log(data);
+        var utterThis = new SpeechSynthesisUtterance("Je n'ai pas l'information, veuillez réessayer");
+
+        if(status === 200){
+            if(question === "lastChap" ){
+                utterThis = new SpeechSynthesisUtterance("Le dernier chapitre de " + objRequest.data.searchValue + " est le scan " + data.resultText.url.replace( /^\D+/g, ''));
+            }else if(question === "showchap"){
+                utterThis = new SpeechSynthesisUtterance("Voici le chapitre " + objRequest.data.searchNum + " de " + objRequest.data.searchValue);
+    
+            }else if(question === "exists"){
+                utterThis = new SpeechSynthesisUtterance("Le manga " + objRequest.data.searchValue + " existe");
+            }
         }
+        
 
         utterThis.lang = 'fr-FR';
         window.speechSynthesis.speak(utterThis);
@@ -92,7 +101,7 @@ class VoiceRecognition extends Component {
             return <div>Pour utiliser la reconnaissance vocale, merci d'utiliser google chrome ;)</div>;
         }
 
-        var resultats = this.state.response ? <MyPluginContent info={this.state.response} /> : "coucou";
+        var resultats = this.state.response ? <MyPluginContent info={this.state.response} /> : "";
 
         return (
 
