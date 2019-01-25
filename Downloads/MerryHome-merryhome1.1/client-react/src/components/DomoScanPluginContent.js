@@ -1,9 +1,6 @@
 import React from 'react';
 
-export default function MyPluginContent(response){
-
-    console.log(response);
-
+export default function DomoScanContent(response){
     const marginStyle = {
         marginTop: '50px'
     };

@@ -2,6 +2,7 @@ import React from 'react'
 import PluginActionButton from "./PluginActionButton"
 import PluginSwitchButton from "./PluginSwitchButton"
 import PluginCameraItem from "./PluginCameraItem"
+import DomoScanPlugin from "./DomoScanPlugin"
 
 export default function PluginItem(props){
     if(props.itemType==="PluginActionButton"){
@@ -10,7 +11,10 @@ export default function PluginItem(props){
         return <PluginSwitchButton pluginName={props.pluginName} name={props.name} device={props.device} action={props.action} data={props.data}/>;
     }else if(props.itemType==="PluginCameraItem"){
         return <PluginCameraItem pluginName={props.pluginName} name={props.name} data={props.data} />;
-    }else{
+    }else if(props.itemType==="DomoScanPlugin"){
+        return <DomoScanPlugin pluginName={props.pluginName} name={props.name} data={props.data} />;
+    }
+    else{
         return <div></div>;
     }
 }

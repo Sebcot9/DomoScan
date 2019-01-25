@@ -1,6 +1,6 @@
 import React from 'react';
-import PluginItem from "./PluginItem"
-import MyPlugin from "./MyPlugin"
+import PluginItem from "./PluginItem";
+import DomoScanPlugin from "./DomoScanPlugin";
 
 export default function PluginContent(props){
     if(props.viewInfo.type==="listItem"){
@@ -9,6 +9,12 @@ export default function PluginContent(props){
                 { props.viewInfo.items.map((item, index) => (
                     <PluginItem key={index} itemType={props.viewInfo.itemType} pluginName={props.pluginName} name={item.name} icon={item.icon} action={item.action} data={item.data} device={item.device} />
                 ))}  
+            </div>
+        );
+    } else if(props.viewInfo.type==="domoScanPlugin"){
+        return (
+            <div>
+             <DomoScanPlugin />
             </div>
         );
     }

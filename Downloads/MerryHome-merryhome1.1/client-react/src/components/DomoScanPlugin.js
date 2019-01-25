@@ -5,7 +5,7 @@ import SpeechRecognition from 'react-speech-recognition'
 //import newfile from 'newfile'
 import {getExpressions, sendRequest, subscribeToEvent} from '../utils/serverhome-api'
 import {searchRequest} from '../utils/voice-helper'
-import MyPluginContent from './MyPluginContent'
+import DomoScanPluginContent from './DomoScanPluginContent'
 
 const propTypes = {
   // Props injected by SpeechRecognition
@@ -14,7 +14,7 @@ const propTypes = {
   browserSupportsSpeechRecognition: PropTypes.bool
 };
 
-class DomoScanPage extends Component {
+class DomoScanPlugin extends Component {
     
     constructor(props){
         super(props);
@@ -101,7 +101,7 @@ class DomoScanPage extends Component {
             return <div>Pour utiliser la reconnaissance vocale, merci d'utiliser google chrome ;)</div>;
         }
 
-        var resultats = this.state.response ? <MyPluginContent info={this.state.response} /> : "";
+        var resultats = this.state.response ? <DomoScanPluginContent info={this.state.response} /> : "";
 
         return (
 
@@ -111,7 +111,6 @@ class DomoScanPage extends Component {
                 <Button bsStyle="danger" onClick={stopListening}><Glyphicon glyph="stop" /> stop </Button> : 
                 <Button bsStyle="info" onClick={startListening }><Glyphicon glyph="play" /> start </Button> }
 
-                <h1>DomoScan</h1>
                 <div>{resultats}</div>
 
                </div>
@@ -119,12 +118,21 @@ class DomoScanPage extends Component {
 
         );
     };
+
+    getView(req, res){
+        var dataView = {
+            "type" : "domoScanPlugin",
+            "itemType" : "DomoScanPlugin"
+        };
+
+        res.end(JSON.stringify(dataView));
+    }
 };
 
-DomoScanPage.propTypes = propTypes;
+DomoScanPlugin.propTypes = propTypes;
 
 const options = {
   autoStart: false
 };
 
-export default SpeechRecognition(options)(DomoScanPage);
+export default SpeechRecognition(options)(DomoScanPlugin);
