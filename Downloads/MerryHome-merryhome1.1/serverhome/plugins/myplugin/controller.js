@@ -48,6 +48,16 @@ class MyPluginController {
 
         }
     }
+
+    getView(req, res){
+        var dataView = {
+            "type" : "myPlugin",
+            "itemType" : "MyPlugin"
+        };
+
+        res.end(JSON.stringify(dataView));
+    }
+
 }
 
 function getUrl(requestUrl, name) {

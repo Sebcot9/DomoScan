@@ -1,5 +1,6 @@
 import React from 'react';
 import PluginItem from "./PluginItem"
+import MyPlugin from "./MyPlugin"
 
 export default function PluginContent(props){
     if(props.viewInfo.type==="listItem"){
@@ -10,7 +11,8 @@ export default function PluginContent(props){
                 ))}  
             </div>
         );
-    }else{
+    }
+    else{
         return <div></div>;
     }
 }

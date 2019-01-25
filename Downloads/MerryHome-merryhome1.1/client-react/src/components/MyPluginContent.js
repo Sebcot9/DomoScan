@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function MyPluginContent(response){
 
-    console.log(response.info);
+    console.log(response);
 
     const marginStyle = {
         marginTop: '50px'
@@ -24,14 +24,14 @@ export default function MyPluginContent(response){
 
         return (
             <div style={marginStyle}>
-                <h1 style={titleStyle}>Bonne lecture !</h1>
+                <h2 style={titleStyle}>Bonne lecture !</h2>
                 <iframe src={url} style={iframeStyle} scrolling="no"/>
             </div>
         );
     }else if(response.info.statusCode === 404 || response.info.statusCode === 500){
-        return <h1 style= {marginStyle}>Il n'y a pas de résultat pour cette recherche</h1>;
+        return <h2 style= {marginStyle}>Il n'y a pas de résultat pour cette recherche</h2>;
     }else{
-        return <h1 style= {marginStyle}>Il</h1>;
+        return <h2 style= {marginStyle}>Veuillez recommencer</h2>;
 
     }
 }

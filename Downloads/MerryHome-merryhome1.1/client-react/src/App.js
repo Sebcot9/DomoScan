@@ -7,6 +7,7 @@ import MenuPanel from './components/MenuPanel'
 import PluginPage from './components/PluginPage'
 import ConfigServerPage from './components/ConfigServerPage'
 import VoiceRecognition from './components/VoiceRecognition'
+import DomoScanPage from './components/DomoScanPage'
 import './App.css';
 
 class App extends Component {
