@@ -51,8 +51,8 @@ class MyPluginController {
 
     getView(req, res){
         var dataView = {
-            "type" : "myPlugin",
-            "itemType" : "MyPlugin"
+            "type" : "domoScanPlugin",
+            "itemType" : "DomoScanPlugin"
         };
 
         res.end(JSON.stringify(dataView));
